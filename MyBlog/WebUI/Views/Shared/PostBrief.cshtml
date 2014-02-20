@@ -1,0 +1,107 @@
+﻿@model WebUI.ViewModel.PagingBriefPostViewModel
+@using Domain.Model
+@using WebUI.HtmlHelpers
+
+<div class="row">
+	<div class="span8">
+	 @foreach (var item in Model.OnePosts) {
+        <div class="row">
+            <div class="span2">
+                <div >
+                    <div class="thumbnail">
+                        @Html.BuildPostImage(item.Image)
+                    </div>
+                    <div >
+                        <ul class="unstyled inline">
+                            <li>
+                                <i class="fa fa-calendar"></i>
+                                <a href="#">@item.Post.PostAddedTime.ToShortDateString()</a>
+                            </li>                                   
+                           @if (item.Post.Comments.Count > 0)
+                           {
+                               <li><i class="fa fa-comments"></i> <a href="#">@item.Post.Comments.Count Comments</a></li>
+                           }
+
+                        </ul>
+                        <ul class="unstyled inline">
+
+                            <li>
+                                @if (item.Tags.Count > 0)
+                                {
+                                    <i class="fa fa-tags"></i>
+                                }
+                                @foreach (var tag in item.Tags)
+                                {
+                                    <a href="#">@tag.TagName</a> 
+                                }
+
+                            </li>
+
+						</ul>
+                    </div>
+               </div>
+            </div>
+			<div class="span6">
+				<h2><a href="/Post/Detail?title=@item.Post.PostTitle">@item.Post.PostTitle</a></h2> 
+					<p>
+						@if(item.Post.PostContent.Length > 120)
+						{
+						   @Html.Raw(item.Post.PostContent.Substring(0, 120))
+						}
+						else
+						{
+						    @Html.Raw(item.Post.PostContent)
+						}
+					</p>  			         
+                @Html.ActionLink("Read More!","Detail","Post", new { title=item.Post.PostTitle },new{@class="btn btn-primary pull-right",target="_blank"})
+			</div>   
+		   
+		</div> 				
+}
+        <div class="pagination pull-right">
+             @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", "Home",new {page = x}))
+        </div>
+
+	</div>
+    <div class="widget span4">
+        <div class="pull-right">
+        <div class="row">			
+            <embed src="http://www.xiami.com/widget/8359140_1770620279,1772256834,_235_346_FF8719_494949_0/multiPlayer.swf" type="application/x-shockwave-flash" width="235" height="346" wmode="opaque"></embed>
+        </div>
+        <div class="row">
+            <h3>分类</h3>
+            <ul class="unstyled inline">
+               
+                @foreach (var c in ViewData["Category"] as IEnumerable<Category>)
+                {
+                    <li>@Html.ActionLink(c.CategoryName,"Category","Home",new {name=c.CategoryName},null)</li> 
+                }              
+            </ul>
+        </div>  	
+            <div class="row">
+                <h3>最新文章</h3>
+                <ul class="unstyled inline">
+                 @foreach (var p in ViewData["RecentPost"] as IEnumerable<Post>)
+                {
+                   <li>@Html.ActionLink(p.PostTitle,"Detail","Post",new {title=p.PostTitle},null)</li> 
+                }  
+                </ul>
+            </div>	
+            <div class="row">
+                <h3>链接</h3>
+                <ul class="unstyled inline">
+                    <li><a href="http://www.cnblogs.com/" target="_blank">博客园</a></li>
+                    <li><a href="http://www.codeproject.com/" target="_blank">Code Project</a></li>
+                    <li><a href="http://stackoverflow.com/" target="_blank">StackOverflow</a></li>
+                    <li><a href="https://github.com/" target="_blank">Github</a></li>
+                    <li><a href="http://www.shanbay.com/" target="_blank">扇贝</a></li>
+                    <li><a href="http://www.zhihu.com/" target="_blank">知乎</a></li>
+                    <li><a href="http://www.qiushibaike.com/" target="_blank">糗百</a></li>
+                </ul>
+            </div>
+            </div>
+    </div> 
+</div>
+			
+
+

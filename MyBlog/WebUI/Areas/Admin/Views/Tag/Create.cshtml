@@ -1,0 +1,40 @@
+﻿@model Domain.Model.Tag
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <div class="">
+       
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TagName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TagName)
+            @Html.ValidationMessageFor(model => model.TagName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TagSlug)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TagSlug)
+            @Html.ValidationMessageFor(model => model.TagSlug)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </p>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-info"})
+</div>

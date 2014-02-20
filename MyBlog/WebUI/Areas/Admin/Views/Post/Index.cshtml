@@ -1,0 +1,58 @@
+﻿@using WebUI.HtmlHelpers
+@model WebUI.ViewModel.PagingPostViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create",null,new{@class="btn btn-success"})
+</p>
+<table id="target" class="table table-bordered">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+           AddTime
+        </th>
+        <th>
+            EditTime
+        </th>
+        <th>
+           IsPrivate
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Post)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostTitle)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.PostAddedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostEditedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPrivate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.PostId },new{@class="btn btn-success"}) &nbsp;
+                @Html.ActionLink("Details", "Details", new { id=item.PostId },new{@class="btn btn-success"}) &nbsp;
+                @Html.ActionLink("Delete", "Delete", new { id=item.PostId },new{@class="btn btn-success"})&nbsp;
+                @Html.ActionLink("Upload","Upload",new { id=item.PostId },new{@class="btn btn-success"})
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="pagination">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new {page = x}))
+</div>
+

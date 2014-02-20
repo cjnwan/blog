@@ -1,0 +1,44 @@
+﻿@model Domain.Model.Category
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <div class="container">
+        <legend>Category</legend>
+
+        @Html.HiddenFor(model => model.CategoryId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CategoryName)
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategorySlug)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CategorySlug)
+            @Html.ValidationMessageFor(model => model.CategorySlug)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </p>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-info"})
+</div>
+
+

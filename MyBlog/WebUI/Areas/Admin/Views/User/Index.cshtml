@@ -1,0 +1,47 @@
+﻿@model Domain.Model.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastLoginDate)
+        </th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.UserName)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => Model.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DisplayName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.LastLoginDate)
+        </td>
+        
+    </tr>
+</table>

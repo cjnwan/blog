@@ -1,0 +1,45 @@
+﻿@model Domain.Model.Post
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+@using (@Html.BeginForm())
+{
+    <div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostTitle)            
+        </div>
+        <div>
+            @Html.TextAreaFor(p => p.PostContent, new {id = "myText", @class = "ckeditor"})
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsPrivate)
+        </div>
+        <div>                
+            @Html.CheckBoxFor(p => p.IsPrivate)
+        </div>
+        <div class="">
+            <div class="row">
+                <div class="span5">
+                    @Html.Partial("Category", ViewData["Cat"])
+                </div>
+                <div class="span5">
+                    @Html.Partial("Tag", ViewData["Tag"])
+                </div>
+            </div>
+        </div>
+    </div>
+ <input type="submit" class="btn btn-success" value="提交"/>
+          
+     }
+ 
+<script type="text/javascript">
+    CKEDITOR.replace('myText'
+,  { filebrowserImageUploadUrl: '/Post/UploadPicture' },{ htmlEncodeOutput: true }
+);
+</script>

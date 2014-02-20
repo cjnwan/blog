@@ -1,0 +1,33 @@
+﻿@model Domain.Model.Tag
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="">
+    
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TagName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TagName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TagSlug)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TagSlug)
+    </div>
+</div>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="btn btn-primary" /> |
+        @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-info"})
+    </p>
+}

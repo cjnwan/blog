@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12052B51-C652-4E9F-AE30-B7355F2651F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\WebUI\bin\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelConfigurations\CalendarEventConfiguration.cs" />
+    <Compile Include="ModelConfigurations\CategoryConfiguration.cs" />
+    <Compile Include="ModelConfigurations\CommentConfiguration.cs" />
+    <Compile Include="ModelConfigurations\ImageConfiguration.cs" />
+    <Compile Include="ModelConfigurations\PostCatConfiguration.cs" />
+    <Compile Include="ModelConfigurations\PostConfiguration.cs" />
+    <Compile Include="ModelConfigurations\PostTagConfiguration.cs" />
+    <Compile Include="ModelConfigurations\RoleConfiguration.cs" />
+    <Compile Include="ModelConfigurations\TagConfiguration.cs" />
+    <Compile Include="ModelConfigurations\UserConfiguration.cs" />
+    <Compile Include="Model\CalendarEvent.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Comment.cs" />
+    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\Post.cs" />
+    <Compile Include="Model\PostCat.cs" />
+    <Compile Include="Model\PostTag.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ICalendarEventRepository.cs" />
+    <Compile Include="Repository\ICategoryRepository.cs" />
+    <Compile Include="Repository\ICommentRepository.cs" />
+    <Compile Include="Repository\IImageRepository.cs" />
+    <Compile Include="Repository\IPostCatRepository.cs" />
+    <Compile Include="Repository\IPostRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IRoleRepository.cs" />
+    <Compile Include="Repository\ITagRepository.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="Repository\IUnitOfWorkContext.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\UnitOfWorkContextBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

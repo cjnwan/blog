@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Domain.Model.Image>
+@*<style> 
+    #masonry 
+    { 
+        padding: 0; 
+        min-height: 450px; 
+        margin: 0 auto; 
+    } 
+    /*#masonry .box 
+    { 
+        width: 330px; 
+        margin: 20px; 
+        padding: 0; 
+        border-width: 1px; 
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
+    }*/ 
+    /*#masonry .box .imgs 
+    { 
+        padding: 10px; 
+    } 
+    #masonry .box .imgs img 
+    { 
+        margin-bottom: 5px; 
+    }*/ 
+    .container-fluid {
+            padding: 20px;
+        }
+    .item {
+          margin-bottom: 20px;
+          float: left;
+          width: 220px;
+      }
+      .item img {
+          max-width: 100%
+      }
+   
+    
+</style>*@
+
+
+
+<div id="contain" >
+    @foreach (var i in Model)
+    {
+        
+        <div class="item"><img src="~/Images/gallery/@i.ImageName.Trim()"></div>
+        
+    }   
+</div>
+<div id="page-nav">
+    <a href="/Image/GetImages/?page=2"></a>
+</div>

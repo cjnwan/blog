@@ -1,0 +1,39 @@
+﻿@model WebUI.ViewModel.PerPost
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="/ckeditor/ckeditor.js"></script>
+
+     @using (Html.BeginForm("Create","Post"))
+     {
+         <div>             
+             <div id="title">
+                 <h3>标题</h3>
+                 @Html.EditorFor(model => model.Post.PostTitle)            
+             </div>
+             <div>
+                 @Html.TextAreaFor(p => p.Post.PostContent, new {id = "myText", @class = "ckeditor"})
+             </div>
+             <div id="isprivate">
+                 <h3>是否发布</h3>@Html.CheckBoxFor(p=>p.Post.IsPrivate)               
+             </div>        
+         <div class="container">
+             <div class="row">
+                 <div class="span5">
+                     @Html.Partial("Category",Model.Categories)
+                 </div>
+                 <div class="span5">
+                     @Html.Partial("Tag",Model.Tags)
+                 </div>
+             </div>
+         </div>
+         <input type="submit" class="btn btn-success" value="提交"/>
+             </div> 
+     }
+ 
+<script type="text/javascript">
+    CKEDITOR.replace('myText'
+        , { filebrowserImageUploadUrl: '/Admin/Post/UploadPicture' }//, { htmlEncodeOutput: true }
+    );
+</script>

@@ -1,0 +1,83 @@
+﻿@model Domain.Model.Post
+@{
+    Layout = null;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>上传图片</title>
+    <link href="~/uploadify/uploadify.css" rel="stylesheet" />
+</head>
+<body>
+    <table class="table table-bordered table-condensed">
+        <th>Title</th>
+        <th>Describe</th>
+        <th>OPeration</th>
+        <tr>
+            <td>
+                @Html.HiddenFor(p=>p.PostId)
+                @Html.DisplayFor(p=>p.PostTitle) 
+            </td>
+            <td>
+                <input type ="text" name="desc" id="description"/>
+                <input type ="button" value="设置" id="set" class="btn btn-success"/>
+            </td>
+            <td>
+                <span id="uploadify"></span>
+            </td>
+        </tr>
+        
+    </table>
+    
+
+    <script src="~/Scripts/jquery-2.0.3.min.js"></script>
+    <script src="~/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#set").click(function () {
+                var imgdesc = document.getElementById("description").value;
+                alert(imgdesc);
+                var passdata = { desc: imgdesc };
+                $.ajax({
+                    type: "post",
+                    url:"/Admin/Post/SetImageDesc",                
+                    dataType:"json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(passdata),
+                    success: function (data) {
+                        alert(JSON.stringify(data.Content));
+                    }
+                });
+            });
+
+            var id = document.getElementById("PostId").value;
+            
+            $('#uploadify').uploadify({
+                
+                uploader: '/Admin/Post/Upload?id='+id,           // 服务器端处理地址
+                swf: '/uploadify/uploadify.swf',    // 上传使用的 Flash
+
+                width: 60,                          // 按钮的宽度
+                height: 23,                         // 按钮的高度
+                buttonText: "上传",                 // 按钮上的文字
+                buttonCursor: 'hand',                // 按钮的鼠标图标
+
+                fileObjName: 'Filedata',            // 上传参数名称
+
+                // 两个配套使用
+                fileTypeExts: "*.jpg;*.png",             // 扩展名
+                fileTypeDesc: "请选择 jpg png 文件",     // 文件说明
+
+                auto: true,                // 选择之后，自动开始上传
+                multi: true,               // 是否支持同时上传多个文件
+                queueSizeLimit: 5          // 允许多文件上传的时候，同时上传文件的个数
+            });
+        });
+    </script>
+</body>
+</html>

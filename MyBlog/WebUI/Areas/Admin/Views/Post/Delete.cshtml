@@ -1,0 +1,54 @@
+﻿@model Domain.Model.Post
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Post</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PostTitle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostTitle)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PostContent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostContent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PostAddedTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostAddedTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PostEditedTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostEditedTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsPrivate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsPrivate)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Domain.Model.Image>
+@{
+    Layout = null;
+   Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/uploadify/uploadify.css" rel="stylesheet" />
+<style>
+    
+    #container .item
+    { 
+      float: left;
+        width: 330px;
+        margin: 20px;
+        padding: 0;
+        border-width: 1px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    } 
+
+     #container .item img {
+          margin-bottom: 5px; 
+     }
+</style>
+
+    <span>图片描述</span>
+    <input type ="text" id="description"/>是否是小图<input id="issmall" type ="radio"/>
+    <input type ="button" value="设置" id="set" class="btn btn-success"/>
+    <span id="uploadify"></span>
+    <hr />
+    <div>
+        
+       @Html.Partial("_Image",Model) 
+    </div> 
+
+<script src="~/waterfall/jquery-2.0.3.min.js"></script>
+<script src="~/uploadify/jquery.uploadify.min.js"></script>
+<script src="~/waterfall/masonry.pkgd.min.js"></script>
+<script src="~/waterfall/jquery.infinitescroll.min.js"></script>
+<script type="text/javascript">
+   
+    $(function () {
+
+        $("#set").click(function () {
+           
+            var imgdesc =document.getElementById("description").value;
+            //alert(imgdesc);
+            var issmall = document.getElementById("issmall").checked;
+            //alert(issmall);
+            var passdata = { desc: imgdesc,small:issmall};
+            $.ajax({
+                type: "post",
+                url: "/Image/SetImageDesc",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(passdata),
+                success: function (data) {
+                    alert(JSON.stringify(data.Content));
+                }
+            });
+        });
+            
+        $('#uploadify').uploadify({
+                
+            uploader: '/Image/Upload?'+issmall,           // 服务器端处理地址
+            swf: '/uploadify/uploadify.swf',    // 上传使用的 Flash
+
+            width: 60,                          // 按钮的宽度
+            height: 23,                         // 按钮的高度
+            buttonText: "上传",                 // 按钮上的文字
+            buttonCursor: 'hand',                // 按钮的鼠标图标
+
+            fileObjName: 'Filedata',            // 上传参数名称
+
+            
+            fileTypeExts: "*.jpg;*.png",             // 扩展名
+            fileTypeDesc: "请选择 jpg png 文件",     // 文件说明
+
+            auto: true,                // 选择之后，自动开始上传
+            multi: true,               // 是否支持同时上传多个文件
+            queueSizeLimit: 5      // 允许多文件上传的时候，同时上传文件的个数 
+        });
+   
+        
+        var $container = $('#contain');
+
+    $container.masonry({
+        itemSelector: '.item',
+        columnWidth: 230,//一列的宽度 Integer
+        isAnimated: true,//使用jquery的布局变化  Boolean  
+        animationOptions: {
+
+            Object: { queue: false, duration: 500 }   //jquery animate属性 渐变效果  
+        },
+        gutterWidth: 40,//列的间隙 Integer  
+        isFitWidth: true,// 适应宽度   Boolean  
+        isResizableL: true,// 是否可调整大小 Boolean  
+        isRTL: false,//使用从右到左的布局 Boolean  
+    });
+
+
+
+    $('#contain').infinitescroll({
+            navSelector: '#page-nav',
+            nextSelector: '#page-nav a', //下一页选择器
+            itemSelector: ".item", //下一页中需要被加载进当前页的块
+            extraScrollPx: 150,//滚动条距离底部多少像素的时候开始加载，默认150
+            animate: true,
+            maxPage: 10,//最大页数
+            dataType: 'json',
+            loading: {
+                //加载效果
+                finishedMsg: 'No more pages to load',
+            },
+            template: function (data) {
+                //data表示服务端返回的json格式数据，这里需要把data转换成瀑布流块的html格式，然后返回给回到函数
+                var img = '';
+                //alert(data);
+                //alert(data[0].ImageName);
+                var i = 0;
+                for (var i in data) {
+                    
+                    img += "<div class='item'>"+"<img src=/Images/gallery/"+ data[i].ImageName+ " /img></div>";
+                    i++;
+                }
+                
+                return img;
+            },
+    },
+        function (newElements) {
+            //回调函数，用Masonry布局
+            // 当加载时隐藏所有新项目
+            var $newElems = $(newElements).css({ opacity: 0 });
+            // 现在可以显示所有的元素
+            $newElems.animate({ opacity: 1 });
+            $('#contain').masonry('appended', $newElems, true);
+
+        }
+    );
+    });
+</script>

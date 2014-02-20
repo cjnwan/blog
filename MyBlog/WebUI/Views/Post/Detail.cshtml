@@ -1,0 +1,83 @@
+﻿@model Domain.Model.Post
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<script src="~/Scripts/jquery.validate.min.js"></script>
+<style type="text/css">
+    .body h1 {
+        padding: 5px;
+        color: white;
+        background-color: #A5A5A5;
+        display: block;
+        font-size: 2em;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+    .comment .commentlist {
+        border: 1px solid #CCCCCC;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+        padding: 4px;
+        margin-bottom: 28px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+</style>
+<script type="text/javascript">
+
+    $(function () {
+
+        $(".comment-reply-link").click(function () {
+
+            $("#content").empty();
+            var author = "@@" + $(this).parent().children().first().text();
+            var commentId = $(this).parent().children().last().attr("value");
+            
+            $("#content").append(author).focus();
+            $("#replay").val("true");
+            
+            $("#replycommentId").val(commentId);
+            
+        });
+
+        $("#formcomment").validate();
+
+    });
+</script>
+
+<div class="container">
+   
+    <div class="post" >
+        <div class="title">
+            <h2>@Model.PostTitle</h2>
+        </div>
+        <div class="body">
+            @Html.Raw(Model.PostContent)
+        </div>
+        <div class="postdesc pull-right">
+            posted @@ @Model.PostAddedTime
+        </div>
+    </div>
+   
+    <div class="comment">
+        @foreach (var item in Model.Comments)
+        {
+            <div class="commentlist">
+                <cite class="author">@item.CommentUserName</cite>
+                <p class="content">@item.CommentContent</p>
+                <a class="comment-reply-link pull-right">回复</a>
+                <small>@item.CommnetDate</small>
+                <input  id="commentId" type ="hidden" value="@item.CommentId"/>
+            </div>
+        }
+    </div>
+    <hr/>
+    <div class="addcomment">
+        @Html.Partial("Comment",Model.PostId)
+    </div>
+</div>

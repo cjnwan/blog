@@ -1,0 +1,30 @@
+﻿@model Domain.Model.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="">
+    
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CategoryName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoryName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CategorySlug)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategorySlug)
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CategoryId },new{@class="btn btn-info"})&nbsp;
+    @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-info"})
+</p>

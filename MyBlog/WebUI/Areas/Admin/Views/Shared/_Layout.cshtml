@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta charset="utf-8">
+        <title>My Blog</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        @Styles.Render("~/Content/nav/css")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/nav")
+    </head>
+    <body>
+        <div role="navigation" id="nav">
+            <ul>
+                <li class="active">@Html.ActionLink("Dashboard","Index","Dashboard")</li>
+                <li>@Html.ActionLink("Post","Index","Post")</li>        
+                <li>@Html.ActionLink("Category","Index","Category")</li>
+                <li>@Html.ActionLink("Tag","Index","Tag")</li>
+                <li>@Html.ActionLink("Image","Index","Image")</li>
+                <li>@Html.ActionLink("User","Index","User")</li>
+                <li>@Html.ActionLink("Calendar","Index","Calendar")</li>
+            </ul>
+        </div>
+
+        <div role="main" class="main">
+            @*<a href="#nav" id="toggle">Menu</a>*@
+            @RenderBody()
+        </div>
+    </body> 
+    <script type="text/javascript">
+        var navigation = responsiveNav("#nav", { customToggle: "#toggle" });
+    </script>
+</html>

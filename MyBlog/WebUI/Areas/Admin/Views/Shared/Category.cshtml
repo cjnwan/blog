@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Domain.Model.Category>
+
+<table class="table table-bordered table-bordered">
+        <th>Category</th>
+@foreach (var item in Model)
+{
+    
+        <tr>
+            <td>
+                @Html.HiddenFor(itemmodel=>item.CategoryId)
+                @Html.CheckBox(item.CategoryName)
+                @Html.DisplayFor(itemmodel=>item.CategoryName)
+            </td>
+        </tr>
+   
+}
+</table>
